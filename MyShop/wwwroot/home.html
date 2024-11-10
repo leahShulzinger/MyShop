@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <script defer src="register.js"></script>
+    <link rel="stylesheet" type="text/css" href="home.css" />
+</head>
+
+<body>
+    <input placeholder="email" type="email" id="Email" />
+    <br />
+    <br />
+    <input placeholder="סיסמא" type="password" id="Password" />
+    <br />
+    <br />
+    <button onclick="login()">התחברות</button>
+    <br />
+    <br />
+    <button onclick="toRegister()">משתמש חדש</button>
+    <br />
+    <br />
+
+    <!--<div class="hid">-->
+        <div>
+            <input placeholder="מייל" type="email" id="email" />
+            <br />
+            <br />
+            <input placeholder="שם פרטי" type="text" id="firstName" />
+            <br />
+            <br />
+            <input placeholder="שם משפחה" type="text" id="lastName" />
+            <br />
+            <br />
+            <input onblur="checkPassword()" placeholder="סיסמא" type="password" id="password" />
+            <br />
+            <br />
+            <button onclick="createUser()">רישום</button>
+        </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>UserDetails</title>
+    <script defer src="register.js"></script>
+</head>
+<body>
+    <input placeholder="כתובת מייל" id="email" />
+    <br /><br />
+    <input placeholder="שם פרטי" id="firstName" />
+    <br /><br />
+    <input placeholder="שם משפחה" id="lastName" />
+    <br /> <br />
+    <input onblur="checkPassword()" placeholder="סיסמא" type="password" id="password" />
+    <br /><br />
+    <button onclick="updateUserDetails()">עדכן</button>
+</body>
+</html>
