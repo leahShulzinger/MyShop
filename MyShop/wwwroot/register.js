@@ -46,6 +46,7 @@ const createUser = async () => {
 
 const chakepassword = async () => {
     const password = document.querySelector("#password").value;
+    const progress = document.querySelector("#progress");
     try {
         const responsePost = await fetch("https://localhost:44376/api/Users/chakepassword", {
             method: 'POST',
@@ -55,11 +56,8 @@ const chakepassword = async () => {
             body: JSON.stringify(password)
         });
         const dataPost = await responsePost.json();
-
-        alert(`${dataPost} `)
-
-
-
+        progress.value = dataPost+1;
+       
     }
     catch (error) {
         alert(response)
@@ -96,6 +94,34 @@ const login = async () => {
     }
     catch (error) {
         alert("קרתה תקלה, נסה שוב מאוחר יותר")
+    }
+}
+
+const updateUserDetails = async () => {
+    const newUser = getDataRfomForm();
+    const userId = sessionStorage.getItem("User")
+    alert(userId)
+    alert(JSON.stringify(newUser))
+    try {
+        const responsePost = await fetch(`api/Users/${userId}`, {
+            method: 'Put',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+
+        });
+        if (!responsePost.ok) {
+            throw new Error(`HTTP error! status:${response.status}`)
+        }
+
+        const dataPost = await responsePost.json();
+        sessionStorage.setItem("User", dataPost.userId)
+
+
+    }
+    catch (error) {
+        console.log(error)
     }
 }
 
