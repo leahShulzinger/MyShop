@@ -1,4 +1,4 @@
-﻿
+﻿const progress = document.querySelector("#progress")
 const toRegister = () => {
     const hid = document.querySelector(".hid")
     hid.classList.remove("hid")
@@ -79,15 +79,21 @@ const login = async () => {
 }
 const checkPassword =async () => {
  
-    const password = document.querySelector("#password").value
-  
-        const responsePost = await fetch(`api/Users/checkPassword`, {
+    const password = document.querySelector("#password").value;
+    try { 
+        const response = await fetch(`api/Users/checkPassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(password)
-        });
+            body: JSON.stringify(password)});
+            const data = await response.json()
+        progress.value = data + 1
+        }
+    catch(error) {
+       console.log(error)
+        }
+        
 
     
 }
