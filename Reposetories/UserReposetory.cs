@@ -1,7 +1,6 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-
-
 namespace Reposetories
 
 {
@@ -37,19 +36,10 @@ namespace Reposetories
         }
         public async Task<User> Login(string email, string password)
         {
-            User user = await myShop.Users.FirstOrDeaultAsync(user=>user.password & user.Email);
+            User user = await myShop.Users.FirstOrDefaultAsync(currentUser=> currentUser.Password==password&& currentUser.Email==email); //await myShop.Users.FirstOrDefault(currentUser=> currentUser.Password == password && currentUser.Email==email);
             return user;
 
-            //using (StreamReader reader = System.IO.File.OpenText(filePath))
-            //{
-            //    string? currentUserInFile;
-            //    while ((currentUserInFile = reader.ReadLine()) != null)
-            //    {
-            //        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-            //        if (user.Email == email && user.Password == password)
-            //            return user;
-            //    }
-            //}
+            
             
 
         }
