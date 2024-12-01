@@ -5,80 +5,59 @@ using System.Text.Json;
 namespace Reposetories
 
 {
-    public class UserReposetory : IUserReposetory
+    public class UserReposetory :  IUserReposetory
     {
-        public UserReposetory()
+        MyShop214935017Context myShop;
+        public UserReposetory(MyShop214935017Context myShop)
         {
-
+            this.myShop = myShop;
         }
         List<User> users = new();
-        string filePath = "M:\\web api\\leah\\MyShop\\text.txt";
-        public User Get(int id)
+        //public async Task<User> Get()
+        //{
+        //    await myShop.Users.GetAsyncEnumerator()
+        //    return users;
+
+
+        //}
+        public async Task<User> Get(int id)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        return user;
-                }
-            }
-            return null;
-
-
-
-        }
-        public User Post(User user)
-        {
-            int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            user.UserId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
+            User user = await myShop.Users.FindAsync(id);
             return user;
-        }
-        public User Login(string email, string password)
-        {
 
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.Email == email && user.Password == password)
-                        return user;
-                }
-            }
-            return null;
+
 
         }
-        public User Put(int id, User userToUpdate)
+        public async Task<User> Post(User user)
         {
-            userToUpdate.UserId = id;
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
+            await myShop.Users.AddAsync(user);
+            await myShop.SaveChangesAsync();
+            return user;
 
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
+        }
+        public async Task<User> Login(string email, string password)
+        {
+            User user = await myShop.Users.FirstOrDeaultAsync(user=>user.password & user.Email);
+            return user;
 
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                System.IO.File.WriteAllText(filePath, text);
-                return userToUpdate;
-            }
-            return null;
+            //using (StreamReader reader = System.IO.File.OpenText(filePath))
+            //{
+            //    string? currentUserInFile;
+            //    while ((currentUserInFile = reader.ReadLine()) != null)
+            //    {
+            //        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
+            //        if (user.Email == email && user.Password == password)
+            //            return user;
+            //    }
+            //}
+            
 
+        }
+        public async Task<User> Put(int id, User userToUpdate)
+        {
+            myShop.Users.Update(userToUpdate);
+            await myShop.SaveChangesAsync();
+            return userToUpdate;
 
         }
     }

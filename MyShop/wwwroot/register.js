@@ -1,7 +1,9 @@
 ﻿const progress = document.querySelector("#progress")
+
+
 const toRegister = () => {
-    const hid = document.querySelector(".hid")
-    hid.classList.remove("hid")
+    const container = document.querySelector(".container")
+    container.classList.remove("container")
    
 }
 

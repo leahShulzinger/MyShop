@@ -1,7 +1,7 @@
-﻿using Entities;
-using Reposetories;
+﻿using Reposetories;
 using System.Text.Json;
 using Zxcvbn;
+using Entities;
 
 
 
@@ -16,26 +16,26 @@ namespace Servicess
             this.resposetory = resposetory;
         }
 
-        public User Get(int id)
+        public Task<User> Get(int id)
         {
 
             return resposetory.Get(id);
         }
-        public User Post(User user)
+        public Task<User> Post(User user)
         {
             int check = CheckPassword(user.Password);
             if (check >= 3)
                 return resposetory.Post(user);
             return null;
         }
-        public User Login(string email, string password)
+        public Task<User> Login(string email, string password)
         {
 
 
             return resposetory.Login(email, password);
 
         }
-        public User Put(int id, User userToUpdate)
+        public Task<User> Put(int id, User userToUpdate)
         {
             int check = CheckPassword(userToUpdate.Password);
             if (check >= 3)
@@ -51,5 +51,7 @@ namespace Servicess
         }
 
     }
+
+
 }
 
