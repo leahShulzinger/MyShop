@@ -36,8 +36,8 @@ namespace Reposetories
         }
         public async Task<User> Login(string email, string password)
         {
-            User user = await myShop.Users.FirstOrDefaultAsync(currentUser=> currentUser.Password==password&& currentUser.Email==email); //await myShop.Users.FirstOrDefault(currentUser=> currentUser.Password == password && currentUser.Email==email);
-            return user;
+            User currentUser = await myShop.Users.FirstOrDefaultAsync(user=> user.Password==password&& user.Email==email); //await myShop.Users.FirstOrDefault(currentUser=> currentUser.Password == password && currentUser.Email==email);
+            return currentUser;
 
             
             
@@ -45,7 +45,7 @@ namespace Reposetories
         }
         public async Task<User> Put(int id, User userToUpdate)
         {
-        
+       
             myShop.Users.Update(userToUpdate);
             await myShop.SaveChangesAsync();
             return userToUpdate;
