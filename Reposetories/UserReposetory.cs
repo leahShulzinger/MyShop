@@ -45,6 +45,7 @@ namespace Reposetories
         }
         public async Task<User> Put(int id, User userToUpdate)
         {
+          
             myShop.Users.Update(userToUpdate);
             await myShop.SaveChangesAsync();
             return userToUpdate;
