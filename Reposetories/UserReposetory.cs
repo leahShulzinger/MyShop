@@ -1,6 +1,8 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+
+
 namespace Reposetories
 
 {
@@ -11,7 +13,7 @@ namespace Reposetories
         {
             this.myShop = myShop;
         }
-        List<User> users = new();
+        //List<User> users = new();
         //public async Task<User> Get()
         //{
         //    await myShop.Users.GetAsyncEnumerator()
@@ -45,7 +47,7 @@ namespace Reposetories
         }
         public async Task<User> Put(int id, User userToUpdate)
         {
-       
+            userToUpdate.Id = id;
             myShop.Users.Update(userToUpdate);
             await myShop.SaveChangesAsync();
             return userToUpdate;

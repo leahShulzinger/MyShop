@@ -14,11 +14,11 @@ const getDataRfomForm = () => {
 
 const updateUserDetails =async () => {
     const newUser = getDataRfomForm();
-    const userId =sessionStorage.getItem("User")
-    alert(userId)
+    const Id =sessionStorage.getItem("User")
+    alert(Id)
     alert(JSON.stringify(newUser))
     try {
-        const responsePost = await fetch(`api/Users/${userId}`, {
+        const responsePost = await fetch(`api/Users/${Id}`, {
             method: 'Put',
             headers: {
                 'Content-Type': 'application/json'

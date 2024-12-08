@@ -71,7 +71,7 @@ const login = async () => {
             throw new Error(`HTTP error! status:${response.status}`)
         }
         const dataPost = await responsePost.json();
-        sessionStorage.setItem("User", dataPost.userId)
+        sessionStorage.setItem("User", dataPost.Id)
 
         window.location.href = "UserDetails.html"
     }

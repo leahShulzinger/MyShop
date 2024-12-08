@@ -46,7 +46,7 @@ namespace MyShop.Controllers
         {
            User newUser=await servicess.Post(user);
             if(newUser!=null)
-            return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
             return BadRequest();
 
         }
