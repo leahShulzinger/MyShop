@@ -13,12 +13,12 @@ namespace Servicess
         {
             this.reposetory = reposetory;
         }
-        public User Get(int id)
+        public Task<User> Get(int id)
         {
             return reposetory.Get(id);
         }
 
-        public User Post(User user)
+        public Task<User> Post(User user)
         {
             int check = Chakepassword(user.Password);
             if (check >= 3)
@@ -27,7 +27,7 @@ namespace Servicess
 
         }
 
-        public User Login(string email, string password)
+        public Task<User> Login(string email, string password)
         {
 
             int check = Chakepassword(password);
@@ -37,7 +37,7 @@ namespace Servicess
 
         }
 
-        public User Put(int id, User userToUpdate)
+        public Task<User> Put(int id, User userToUpdate)
         {
             int check = Chakepassword(userToUpdate.Password);
             if (check >= 3)
@@ -51,4 +51,5 @@ namespace Servicess
 
         }
     }
+
 }

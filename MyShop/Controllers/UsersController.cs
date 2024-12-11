@@ -4,6 +4,7 @@ using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 using Entities;
 
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyShop.Controllers
@@ -27,9 +28,9 @@ namespace MyShop.Controllers
         // GET api/<UsersController>/5
 
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            User user = userservicess.Get(id);
+            User user = await userservicess.Get(id);
                     if (user!=null)
                         return Ok(user);          
             return NotFound();
@@ -38,41 +39,38 @@ namespace MyShop.Controllers
         // POST api/<UsersController>
         [HttpPost]
 
-        public IActionResult Post([FromBody] User user)
+        public async Task<IActionResult> Post([FromBody] User user)
         {  
-            User newuser=userservicess.Post(user);
+            User newuser= await userservicess.Post(user);
+            
             if (newuser!=null)
-            return CreatedAtAction(nameof(Get), new {id=user.UserId},user); 
+            return CreatedAtAction(nameof(Get), new {id=user.Id},user); 
             return BadRequest();
         }
 
         [HttpPost("login")]
        
-        public IActionResult Login([FromQuery] string email, [FromQuery] string password)
+        public async Task<ActionResult<User>> Login([FromQuery] string email, [FromQuery] string password)
         {
 
-            User user = userservicess.Login(email,password);
+            User user = await userservicess.Login(email,password);
             if(user!=null)
-            return Ok(user);
+            return Ok();
             return NoContent();
 
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody] User userToUpdate)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] User userToUpdate)
         {
-            User user = userservicess.Put(id, userToUpdate);
+            User user = await userservicess.Put(id, userToUpdate);
             if (user != null)
                 return Ok(userToUpdate);            
             return BadRequest();
         }
 
-        // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
         [HttpPost("chakepassword")]
         public ActionResult<int> Chakepassword([FromBody] string password)
         {
@@ -84,5 +82,3 @@ namespace MyShop.Controllers
 
     }
 }
-//8888ggg
-//8888
