@@ -31,7 +31,7 @@ const updateUserDetails =async () => {
         }
 
         const dataPost = await responsePost.json();
-        sessionStorage.setItem("User", dataPost.userId);
+        sessionStorage.setItem("User", dataPost.Id);
        
 
     }

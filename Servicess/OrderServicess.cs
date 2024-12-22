@@ -15,12 +15,7 @@ namespace Servicess
         {
             this.reposetory = reposetory;
         }
-        public Task<List<Order>> Get()
-        {
-
-            return reposetory.Get();
-
-        }
+       
         public Task<Order> Get(int id)
         {
 
@@ -31,13 +26,6 @@ namespace Servicess
             return reposetory.Post(Order);
         }
 
-        //public Task<Order> Put(int id, Order OrderToUpdate)
-        //{
-
-        //    return reposetory.(id, OrderToUpdate);
-
-
-        //}
 
     }
 }

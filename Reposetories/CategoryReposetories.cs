@@ -22,9 +22,6 @@ namespace Reposetories
         {
             return await myShop.Categories.ToListAsync();
         }
-        public async Task<Category> GetById(int id)
-        {
-            return await myShop.Categories.FirstOrDefaultAsync(currentCategory => currentCategory.Id == id);
-        }
+
     }
 }

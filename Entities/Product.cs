@@ -11,7 +11,7 @@ public partial class Product
 
     public string? ProductName { get; set; }
 
-    public string Price { get; set; } = null!;
+    public double Price { get; set; }
 
     public string? Image { get; set; }
 

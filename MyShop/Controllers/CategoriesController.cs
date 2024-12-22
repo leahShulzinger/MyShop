@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Servicess;
 
@@ -11,44 +13,22 @@ namespace MyShop.Controllers
     public class CategoriesController : ControllerBase
     {
         ICategoryServicess servicess;
-        public CategoriesController(ICategoryServicess servicess)
+        IMapper _mapper;
+        public CategoriesController(ICategoryServicess servicess, IMapper mapper)
         {
             this.servicess = servicess;
+            _mapper = mapper;
         }
         // GET: api/<CategoriesController>
         [HttpGet]
-        public async Task <ActionResult<List<Category>>> Get()
+        public async Task<ActionResult<List<CategoryDTO>>> Get()
         {
             List<Category> categories = await servicess.Get();
             if (categories != null)
-                return Ok(categories);
+                return Ok(_mapper.Map<List<Category>, List<CategoryDTO>>(categories));
             return BadRequest();
         }
 
-        // GET api/<CategoriesController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> Get(int id)
-        {
-           Category category = await servicess.GetById(id);
-            return category;
-        }
 
-        // POST api/<CategoriesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoriesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CategoriesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

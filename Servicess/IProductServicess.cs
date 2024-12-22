@@ -4,9 +4,6 @@ namespace Servicess
 {
     public interface IProductServicess
     {
-        Task<List<Product>> Get();
-        Task<Product> GetById(int id);
-    
+        Task<List<Product>> Get(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds);
     }
-
-    }
+}

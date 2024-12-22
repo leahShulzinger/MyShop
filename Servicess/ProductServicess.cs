@@ -8,21 +8,18 @@ using System.Threading.Tasks;
 
 namespace Servicess
 {
-    public class ProductServicess : IProductServicess
+    public class ProductServicess :IProductServicess
     {
         IProductReposetories reposetory;
         public ProductServicess(IProductReposetories reposetory)
         {
             this.reposetory = reposetory;
         }
-        public async Task<List<Product>> Get()
+        public async Task<List<Product>> Get(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-            return await reposetory.Get();
+            return await reposetory.Get(desc, minPrice, maxPrice, categoryIds);
         }
-        public async Task<Product> GetById(int id)
-        {
-            return await reposetory.GetById(id);
-        }
+
 
     }
 }

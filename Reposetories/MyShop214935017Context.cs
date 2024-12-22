@@ -25,9 +25,9 @@ public partial class MyShop214935017Context : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        //=> optionsBuilder.UseSqlServer("Server=SRV2\\PUPILS;Database=MyShop_214935017;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=SRV2\\PUPILS;Database=MyShop_214935017;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -71,7 +71,6 @@ public partial class MyShop214935017Context : DbContext
 
             entity.Property(e => e.DescreaptionProduct).HasMaxLength(100);
             entity.Property(e => e.Image).HasMaxLength(100);
-            entity.Property(e => e.Price).HasMaxLength(50);
             entity.Property(e => e.ProductName).HasMaxLength(100);
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products)

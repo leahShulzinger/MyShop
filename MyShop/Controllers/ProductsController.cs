@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Servicess;
 
@@ -11,48 +13,24 @@ namespace MyShop.Controllers
     public class ProductsController : ControllerBase
     {
         IProductServicess servicess;
+        IMapper _mapper;
 
-
-           public ProductsController(IProductServicess servicess)
+        public ProductsController(IProductServicess servicess, IMapper mapper)
         {
             this.servicess = servicess;
+            _mapper = mapper;
         }
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task <ActionResult<List<Product>>> Get()
-        { var products= await servicess.Get();
+        public async Task<ActionResult<List<ProductDTO>>> Get([FromQuery] string? desc, [FromQuery] int? minPrice, [FromQuery] int? maxPrice, [FromQuery] int?[] categoryIds)
+        {
+            List<Product> products = await servicess.Get(desc,minPrice,maxPrice,categoryIds);
             if (products != null)
-                return Ok(products);
+                return Ok(_mapper.Map<List<Product>, List<ProductDTO>>(products));
             return NotFound();
-           
+
         }
 
-        // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetById(int id)
-        {
-            Product product = await servicess.GetById(id);
-            if (product != null)
-                return Ok(product);
-            return NotFound();
-        }
 
-        // POST api/<ProductsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ProductsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProductsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

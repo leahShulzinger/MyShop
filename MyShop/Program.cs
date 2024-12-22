@@ -11,9 +11,10 @@ builder.Services.AddScoped<IProductReposetories, ProductReposetories>();
 builder.Services.AddScoped<ICategoryServicess, CategoryServicess>();
 builder.Services.AddScoped<ICategoryReposetories, CategoryReposetories>();
 builder.Services.AddScoped<IOrderServicess, OrderServicess>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IOrderReposetories, OrderReposetories>();
-builder.Services.AddDbContext<MyShop214935017Context>(options => options.UseSqlServer
-("data source=srv2\\pupils;initial catalog=MyShop_214935017;Integrated Security=SSPI;Persist Security Info=False;TrustServerCertificate=true"));
+builder.Services.AddDbContext<MyShop214935017Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
+
 // Add services to the container.
 
 builder.Services.AddControllers();

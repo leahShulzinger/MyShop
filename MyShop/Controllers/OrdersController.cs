@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Reposetories;
 using Servicess;
@@ -12,28 +14,22 @@ namespace MyShop.Controllers
     public class OrdersController : ControllerBase
     {
         IOrderServicess servicess;
-        public OrdersController(IOrderReposetories reposetory)
+        IMapper _mapper;
+        public OrdersController(IOrderServicess servicess, IMapper mapper)
         {
-            this.servicess = servicess;  
+            this.servicess = servicess;
+            _mapper = mapper;
         }
 
-        // GET: api/<OrdersController>
-        [HttpGet]
-        public async Task<ActionResult<List<Product>>> Get()
-        {
-          List<  Order >order = await servicess.Get();
-            if (order != null)
-                return Ok(order);
-            return NotFound();
-        }
+
 
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> Get(int id)
+        public async Task<ActionResult<OrderDTO>> Get(int id)
         {
-            Order Order = await servicess.Get(id);
-            if (Order != null)
-                return Ok(Order);
+            Order order = await servicess.Get(id);
+            if (order != null)
+                return Ok(_mapper.Map<Order, OrderDTO>(order));
             return NotFound();
 
 
@@ -42,24 +38,14 @@ namespace MyShop.Controllers
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<ActionResult<Order>> Post([FromBody] Order order)
+        public async Task<ActionResult<OrderDTO>> Post([FromBody] OrderDTOPost order)
         {
-            Order newOrder = await servicess.Post(order);
+            Order newOrder = await servicess.Post(_mapper.Map<OrderDTOPost, Order>(order));
             if (newOrder != null)
-             return CreatedAtAction(nameof(Get), new { id = order.Id }, order);
+                return CreatedAtAction(nameof(Get), new { id = newOrder.Id }, _mapper.Map<Order, OrderDTO>(newOrder));
             return BadRequest();
         }
 
-        // PUT api/<OrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<OrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
