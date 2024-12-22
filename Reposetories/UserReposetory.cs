@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 namespace Reposetories
 {
@@ -30,9 +31,9 @@ namespace Reposetories
 
         public async Task<User> Login(string email, string password)
         {
-          
 
-            User user = await myShop.Users.FindAsync(email);
+
+            User user = await myShop.Users.FirstOrDefaultAsync(c => c.Password == password && c.Email == email);
             return user;
 
 
@@ -40,6 +41,7 @@ namespace Reposetories
 
         public async Task<User> Put(int id, User userToUpdate)
         {
+            userToUpdate.Id = id;
             myShop.Users.Update(userToUpdate);
             await myShop.SaveChangesAsync();
             return userToUpdate;

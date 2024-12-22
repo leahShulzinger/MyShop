@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 using Entities;
+using DTO;
+using AutoMapper;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,8 +16,10 @@ namespace MyShop.Controllers
     public class UsersController : ControllerBase
     {
         IUseServices userservicess;
-        public UsersController(IUseServices userservicess)
+        IMapper mapper;
+        public UsersController(IUseServices userservicess,IMapper mapper)
         {
+            this.mapper = mapper;
             this.userservicess = userservicess;
         }
         // GET: api/<UsersController>
@@ -28,45 +32,45 @@ namespace MyShop.Controllers
         // GET api/<UsersController>/5
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<UserDTOGet>> Get(int id)
         {
             User user = await userservicess.Get(id);
                     if (user!=null)
-                        return Ok(user);          
+                        return Ok(mapper.Map<User,UserDTOGet>(user));          
             return NotFound();
         }
 
         // POST api/<UsersController>
         [HttpPost]
 
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<ActionResult<UserDTOGet>> Post([FromBody] UserDTO user)
         {  
-            User newuser= await userservicess.Post(user);
+            User newuser= await userservicess.Post(mapper.Map<UserDTO,User>(user));
             
             if (newuser!=null)
-            return CreatedAtAction(nameof(Get), new {id=user.Id},user); 
+            return CreatedAtAction(nameof(Get), new {id= newuser.Id}, mapper.Map<User,UserDTOGet>(newuser)); 
             return BadRequest();
         }
 
         [HttpPost("login")]
        
-        public async Task<ActionResult<User>> Login([FromQuery] string email, [FromQuery] string password)
+        public async Task<ActionResult<UserDTOGet>> Login([FromQuery] string email, [FromQuery] string password)
         {
 
             User user = await userservicess.Login(email,password);
             if(user!=null)
-            return Ok();
+            return Ok(mapper.Map<User,UserDTOGet>(user));
             return NoContent();
 
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Put(int id, [FromBody] User userToUpdate)
+        public async Task<ActionResult<UserDTOGet>> Put(int id, [FromBody] UserDTO userToUpdate)
         {
-            User user = await userservicess.Put(id, userToUpdate);
+            User user = await userservicess.Put(id,mapper.Map<UserDTO,User>(userToUpdate));
             if (user != null)
-                return Ok(userToUpdate);            
+                return Ok(mapper.Map<User, UserDTOGet>(user));            
             return BadRequest();
         }
 

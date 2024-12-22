@@ -19,11 +19,11 @@ namespace MyShop.Controllers
             this.services = services;
             this.mapper = mapper;
         }
-        // GET: api/<ProdectsController>
+        
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> Get()
+        public async Task<ActionResult<List<ProductDTO>>> Get([FromQuery] string? desc, [FromQuery] float? minPrice, [FromQuery] float? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            List<Product> product = await services.Get();
+            List<Product> product = await services.Get(desc, minPrice, maxPrice, categoryIds);
 
             if (product != null)
                 return Ok(mapper.Map<List<Product>,List<ProductDTO>>(product));

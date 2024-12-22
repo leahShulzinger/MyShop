@@ -27,17 +27,17 @@ namespace MyShop.Controllers
         {
             Order order = await services.GetById(id);
             if (order != null)
-                return Ok(mapper.Map<Order, OrdersDTOGetById>(order));
+                return Ok(mapper.Map<Order, OrdersDTO>(order));
             return NotFound();
         }
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<ActionResult<Order>> Post([FromBody] Order value)
+        public async Task<ActionResult<OrdersDTO>> Post([FromBody] OrdersDTOPost order)
         {
-            Order order = await services.Post(value);
+            Order neworder = await services.Post(mapper.Map<OrdersDTOPost, Order>(order));
             if (order != null)
-                return CreatedAtAction(nameof(Get), new {id=order.Id},order);
+                return CreatedAtAction(nameof(Get), new {id= neworder.Id}, mapper.Map<Order,OrdersDTO>(neworder));
             return NotFound();
         }
 

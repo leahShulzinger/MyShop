@@ -15,11 +15,11 @@ namespace Reposetories
         {
             this.myShop = myShop;
         }
-       
+
 
         public async Task<Order> GetById(int id)
         {
-            return await myShop.Orders.FirstOrDefaultAsync(c => c.Id == id);
+            return await myShop.Orders.Include(p => p.OrderItems).Include(o => o.User).FirstOrDefaultAsync(c => c.Id == id);
 
         }
         public async Task<Order> Post(Order Order)
@@ -30,7 +30,7 @@ namespace Reposetories
         }
 
 
-        
+
 
     }
 }

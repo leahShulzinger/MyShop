@@ -10,7 +10,13 @@ namespace MyShop
         {
             CreateMap<Product, ProductDTO>();
             CreateMap<Category, CategoryDTO>();
-            CreateMap<Order, OrdersDTOGetById>();
+            CreateMap<Order, OrdersDTO>();
+            CreateMap<OrdersDTOPost,Order>();
+            CreateMap<OrderItemsDTOPost,OrderItem>();
+            CreateMap<UserDTO, User>();
+            CreateMap<User,UserDTOGet>();
+
+
         }
     }
 

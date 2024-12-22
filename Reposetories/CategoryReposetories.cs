@@ -21,6 +21,6 @@ namespace Reposetories
             return await myShop.Categories.ToListAsync();
 
         }
-        
+
     }
 }

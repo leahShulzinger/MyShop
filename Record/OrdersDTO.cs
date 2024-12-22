@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public record OrdersDTOGetById(int Sum, DateOnly Date,string UserFirstName);
-    public record OrdersDTOPost(int Sum, DateOnly Date, string UserFirstName);
+    public record OrdersDTO(int Id, DateOnly Date,string UserFirstName, int Sum);
+    public record OrdersDTOPost(int UserId,List<OrderItemsDTOPost> OrderItems,DateOnly Date);
 }
