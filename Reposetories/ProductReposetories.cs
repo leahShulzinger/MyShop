@@ -18,8 +18,7 @@ namespace Reposetories
         //List<Product>products=new();
         public async Task<List<Product>> Get(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
-
-            var query = myShop.Products.Where(product =>
+              var query = myShop.Products.Where(product =>
                 (desc == null ? (true) : (product.DescreaptionProduct.Contains(desc)))
                 && ((minPrice == null) ? (true) : (product.Price >= minPrice))
                 && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
