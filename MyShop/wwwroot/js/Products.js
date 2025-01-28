@@ -121,7 +121,7 @@ const addToCart = (product) => {
 }
 const drawCategory = async () => {
     category = await addCategory()
-    for (let i = 0; i < category.length; i++) {
+    for (let i = 0; i < category?.length; i++) {
         let tmp = document.getElementById("temp-category");
         let cloneCategory = tmp.content.cloneNode(true)
         cloneCategory.querySelector("input").id=i

@@ -22,7 +22,7 @@ const drawProducts = async () => {
     products = sessionStorage.getItem("shopingBag")
     products = JSON.parse(products)
     let price = 0;
-    document.getElementById("itemCount").textContent = products.length; 
+    document.getElementById("itemCount").textContent = products?.length; 
    
     document.querySelector("tbody").innerHTML=''
     for (let i = 0; i < products.length; i++) {
