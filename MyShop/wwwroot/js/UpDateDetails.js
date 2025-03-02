@@ -1,4 +1,7 @@
-﻿
+﻿const message = document.getElementById("message");
+const message1 = document.getElementById("message1");
+const message2 = document.getElementById("message2");
+
 
 const getDataRfomForm = () => {
 

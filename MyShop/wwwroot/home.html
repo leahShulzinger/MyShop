@@ -21,23 +21,31 @@
     <br />
     <br />
 
-    
+
     <container class="container">
         <input placeholder="מייל" type="email" id="email" />
+
         <br />
+        <span id="message" style="color:red;"></span>
         <br />
         <input placeholder="שם פרטי" type="text" id="firstName" />
         <br />
+        <span id="message1" style="color:red;"></span>
         <br />
         <input placeholder="שם משפחה" type="text" id="lastName" />
         <br />
         <br />
-        <input onblur="checkPassword()" placeholder="סיסמא" type="password" id="password" /> <progress id="progress" max="5" value="0"></progress>
+        <input onblur="checkPassword()" placeholder="סיסמא" type="password" id="password" />
+        <progress id="progress" max="5" value="0"></progress>
         <br />
+        
+
+        <span id="message2" style="color:red;"></span>
+
         <br />
         <button onclick="createUser()">רישום</button>
     </container>
 
-   
+
 </body>
 </html>

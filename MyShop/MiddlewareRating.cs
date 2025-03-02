@@ -28,10 +28,10 @@ namespace MyShop
             //•	USER_AGENT - מכיל את שם הדפדפן, גירסתו, מערכת ההפעלה ושפתה
             //•	RECORD_DATE - תאריך הרישום לרייטינג
             Rating ratin = new();
-            ratin.Method = httpContext.Request.Method;
+            ratin.Method = httpContext.Request.Method.ToString();
             ratin.Host = httpContext.Request.Host.ToString();
-            ratin.Path = httpContext.Request.Path.Value;
-            ratin.UserAgent = httpContext.Request.Headers.UserAgent;
+            ratin.Path = httpContext.Request.Path.Value.ToString();
+            ratin.UserAgent = httpContext.Request.Headers.UserAgent.ToString();
             ratin.Referer = httpContext.Request.Headers.Referer;
             ratin.RecordDate = DateTime.Now;
             //ratin.Host= httpContext.
