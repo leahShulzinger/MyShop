@@ -61,10 +61,13 @@ const placeOrder =async () => {
     console.log(shopingBag)
     let user = JSON.parse(sessionStorage.getItem("User")) || []
     if (user.length != 0 && shopingBag.length != 0) {
-    let products = []
+        let products = []
+        let sum = 0;
         for (let i = 0; i < shopingBag.length;i++) {
-            let currentProduct = { productId: shopingBag[i].id, quentity: 1 }
+            let currentProduct = { productId: shopingBag[i].id, quentity: 1, price: shopingBag[i].price }
             products.push(currentProduct);
+            sum += parseFloat(currentProduct.price);
+            console.log(sum)
             console.log(currentProduct)
         }
         try {
@@ -77,7 +80,8 @@ const placeOrder =async () => {
                 body:JSON.stringify( {
                 userId: user,
                 date:"2025-01-05",
-                orderItems:products
+                orderItems: products,
+                sum:sum
                 })
 
             });

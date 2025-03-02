@@ -31,6 +31,10 @@ namespace Reposetories
             //return product;
         }
 
+        public Product GetById(int id)
+        {
+            return  myShop.Products.FirstOrDefault(product => product.Id == id);
+        }
 
     }
 }
