@@ -31,9 +31,9 @@ namespace Reposetories
             //return product;
         }
 
-        public Product GetById(int id)
+        public async Task <Product> GetById(int id)
         {
-            return  myShop.Products.FirstOrDefault(product => product.Id == id);
+            return await myShop.Products.FindAsync(id);
         }
 
     }

@@ -1,5 +1,7 @@
 ﻿using Entities;
 using Microsoft.Extensions.Logging;
+
+//using Microsoft.Extensions.Logging;
 using Reposetories;
 using System;
 using System.Collections.Generic;
@@ -13,13 +15,14 @@ namespace Servicess
         public class OrderServicess : IOrderServicess
         
     {
-        //private readonly ILogger<OrderServicess> _logger;
+        private readonly ILogger<OrderServicess> _logger;
         IOrderReposetories reposetory;
        IProductReposetories reposetory1;
-        public OrderServicess(IOrderReposetories reposetory, IProductReposetories reposetory1)
+        public OrderServicess(IOrderReposetories reposetory, IProductReposetories reposetory1, ILogger<OrderServicess> _logger)
         {
             this.reposetory = reposetory;
             this.reposetory1 = reposetory1;
+            this._logger = _logger;
         }
        
         public Task<Order> Get(int id)
@@ -27,24 +30,24 @@ namespace Servicess
 
             return reposetory.Get(id);
         }
-        public Task<Order> Post(Order Order)
+        public async Task<Order> Post(Order Order)
         {
-           Order goodOrder= getSum(Order);
-            return reposetory.Post(goodOrder);
+           Order goodOrder=await getSum(Order);
+            return await reposetory.Post(goodOrder);
         }
-        private Order getSum(Order Order)
+        private async Task< Order> getSum(Order Order)
         {
             float sum = 0;
-            foreach (var product in Order.OrderItem)
+            foreach (var product in Order.OrderItems)
             {
-                Product goodProduct = reposetory1.GetById(product.Id);
-                sum += goodProduct.Price;
+                Product goodProduct =await reposetory1.GetById(product.ProductId);
+                sum +=(float)goodProduct.Price;
             }
             if (Order.Sum != sum)
             {
               
                 Order.Sum =  sum;
-                //_logger.LogError("הכניס סכום בכוחות עצמו");
+                _logger.LogError("הכניס סכום בכוחות עצמו");
             }
 
             return Order;

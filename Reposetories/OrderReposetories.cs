@@ -18,17 +18,17 @@ namespace Reposetories
 
         public async Task<Order> Get(int id)
         {
-            return await myShop.Orders.Include(u => u.User).Include(o => o.OrderItem).FirstOrDefaultAsync(order => order.Id == id);
+            return await myShop.Orders.Include(u => u.User).Include(o => o.OrderItems).FirstOrDefaultAsync(order => order.Id == id);
 
 
 
 
         }
-        public async Task<Order> Post(Order Order)
+        public async Task<Order> Post(Order order)
         {
-            await myShop.Orders.AddAsync(Order);
+            await myShop.Orders.AddAsync(order);
             await myShop.SaveChangesAsync();
-            return Order;
+            return order;
 
         }
 

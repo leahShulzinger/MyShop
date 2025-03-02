@@ -5,7 +5,7 @@ using Reposetories;
 using Servicess;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.UseNLog();
+
 builder.Services.AddScoped<IUserServicess, UserServicess>();
 builder.Services.AddScoped<IUserReposetory, UserReposetory>();
 builder.Services.AddScoped<IProductServicess, ProductServicess>();
@@ -24,20 +24,24 @@ builder.Services.AddDbContext<MyShop214935017Context>(options => options.UseSqlS
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Host.UseNLog();
 var app = builder.Build();
-app.UseErrorHandlingMiddleware();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseErrorHandlingMiddleware();
+app.UseMiddlewareRating();
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseMiddlewareRating();
 app.UseAuthorization();
 
 app.MapControllers();

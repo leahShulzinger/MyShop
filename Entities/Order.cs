@@ -11,9 +11,9 @@ public partial class Order
 
     public DateOnly Date { get; set; }
 
-    public int? Sum { get; set; }
+    public double Sum { get; set; }
 
-    public virtual ICollection<OrderItem> OrderItem { get; set; } = new List<OrderItem>();
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual User User { get; set; } = null!;
 }
