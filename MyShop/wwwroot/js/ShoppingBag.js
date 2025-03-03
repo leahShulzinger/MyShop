@@ -63,9 +63,12 @@ const placeOrder = async () => {
     let user = JSON.parse(sessionStorage.getItem("User")) || []
     if (user.length != 0 && cart.length != 0) {
         let products = []
+        let s=0
         for (let i = 0; i < cart.length; i++) {
-            let currentProduct = { productId: cart[i].id, quentity: 1 }
+            let currentProduct = { productId: cart[i].id, quentity: 1, price: cart [i].price}
             products.push(currentProduct);
+            s += parseFloat(currentProduct.price)
+         
             console.log(currentProduct)
         }
         try {
@@ -77,8 +80,9 @@ const placeOrder = async () => {
                 },
                 body: JSON.stringify({
                     userId: user,
-                    date: "2025-01-05",
-                    orderItems: products
+                    date: "2025-01-06",
+                    orderItems: products,
+                    sum:s
                 })
 
             });

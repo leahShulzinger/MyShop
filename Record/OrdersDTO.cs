@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 namespace DTO
 {
     public record OrdersDTO(int Id, DateOnly Date,string UserFirstName, int Sum);
-    public record OrdersDTOPost(int UserId,List<OrderItemsDTOPost> OrderItems,DateOnly Date);
+    public record OrdersDTOPost(int UserId,List<OrderItemsDTOPost> OrderItems,DateOnly Date,int Sum);
 }
