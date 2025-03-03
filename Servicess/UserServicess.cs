@@ -3,6 +3,8 @@ using System.Text.Json;
 
 using Entities;
 using Zxcvbn;
+using Microsoft.Extensions.Logging;
+using DTO;
 
 
 namespace Servicess
@@ -10,36 +12,38 @@ namespace Servicess
     public class UserServicess : IUserServicess
     {
         IUserReposetory resposetory;
+        ILogger<UserServicess> _logger;
 
-        public UserServicess(IUserReposetory resposetory)
+        public UserServicess(IUserReposetory resposetory, ILogger<UserServicess> _loggert)
         {
             this.resposetory = resposetory;
+            this._logger = _logger;
         }
 
-        public Task<User> Get(int id)
+        public async Task<User> Get(int id)
         {
 
-            return resposetory.Get(id);
+            return await resposetory.Get(id);
         }
-        public Task<User> Post(User user)
+        public async Task<User> Post(User user)
         {
             int check = CheckPassword(user.Password);
             if (check >= 3)
-                return resposetory.Post(user);
+                return await resposetory.Post(user);
             return null;
         }
-        public Task<User> Login(string email, string password)
+        public async Task<User> Login(string email, string password)
         {
-
-
-            return resposetory.Login(email, password);
+            User user =await resposetory.Login(email, password);
+            _logger.LogInformation(user.ToString());
+            return user;
 
         }
-        public Task<User> Put(int id, User userToUpdate)
+        public async Task<User> Put(int id, User userToUpdate)
         {
             int check = CheckPassword(userToUpdate.Password);
             if (check >= 3)
-                return resposetory.Put(id, userToUpdate);
+                return await resposetory.Put(id, userToUpdate);
             return null;
 
         }
