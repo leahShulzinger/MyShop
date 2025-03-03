@@ -5,13 +5,13 @@ using Entities;
 
 namespace Reposetories;
 
-public partial class MyShop214935017Context : DbContext
+public partial class MyShop328120357Context : DbContext
 {
-    public MyShop214935017Context()
+    public MyShop328120357Context()
     {
     }
 
-    public MyShop214935017Context(DbContextOptions<MyShop214935017Context> options)
+    public MyShop328120357Context(DbContextOptions<MyShop328120357Context> options)
         : base(options)
     {
     }

@@ -8,8 +8,8 @@ namespace Reposetories
 {
     public class UserReposetory : IUserReposetory
     {
-        MyShop214935017Context myShop;
-        public UserReposetory(MyShop214935017Context myShop)
+        MyShop328120357Context myShop;
+        public UserReposetory(MyShop328120357Context myShop)
         {
             this.myShop = myShop;
         }

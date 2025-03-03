@@ -10,8 +10,8 @@ namespace Reposetories
 {
     public class ProductReposetories : IProductReposetories
     {
-        MyShop214935017Context myShop;
-        public ProductReposetories(MyShop214935017Context myShop)
+        MyShop328120357Context myShop;
+        public ProductReposetories(MyShop328120357Context myShop)
         {
             this.myShop = myShop;
         }

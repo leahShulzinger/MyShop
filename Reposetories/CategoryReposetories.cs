@@ -13,8 +13,8 @@ namespace Reposetories
 
     public class CategoryReposetories : ICategoryReposetories
     {
-        MyShop214935017Context myShop;
-        public CategoryReposetories(MyShop214935017Context myShop)
+        MyShop328120357Context myShop;
+        public CategoryReposetories(MyShop328120357Context myShop)
         {
             this.myShop = myShop;
         }

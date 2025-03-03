@@ -10,8 +10,8 @@ namespace Reposetories
 {
     public class OrderReposetories : IOrderReposetories
     {
-        MyShop214935017Context myShop;
-        public OrderReposetories(MyShop214935017Context myShop)
+        MyShop328120357Context myShop;
+        public OrderReposetories(MyShop328120357Context myShop)
         {
             this.myShop = myShop;
         }
