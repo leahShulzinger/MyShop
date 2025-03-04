@@ -19,7 +19,7 @@ namespace MyShop
             _next = next;
         }
 
-        public  Task Invoke(HttpContext httpContext,IRatingServicess ratingService)
+        public  async Task Invoke(HttpContext httpContext,IRatingServicess ratingService)
         {
             //            •	HOST - כתובת האתר בה אנו גולשים כעת
             //•	METHOD - המתודה אליה נגשנו)
@@ -32,11 +32,11 @@ namespace MyShop
             ratin.Host = httpContext.Request.Host.ToString();
             ratin.Path = httpContext.Request.Path.Value.ToString();
             ratin.UserAgent = httpContext.Request.Headers.UserAgent.ToString();
-            ratin.Referer = httpContext.Request.Headers.Referer;
+            ratin.Referer = httpContext.Request.Headers.Referer.ToString();
             ratin.RecordDate = DateTime.Now;
             //ratin.Host= httpContext.
-           ratingService.Post(ratin);
-            return _next(httpContext);
+          await ratingService.Post(ratin);
+            await _next(httpContext);
         }
     }
 
